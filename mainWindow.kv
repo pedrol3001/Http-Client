@@ -1,0 +1,107 @@
+#:kivy 1.0
+
+<getHttp>:
+    name: "request"
+
+
+    host: host
+    port: port
+    files: files
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    
+    FloatLayout:
+        background_color: 1, .3, .4, .85
+        cols:1
+        FloatLayout:
+            size: root.width, root.height/2
+            Label:
+                color: 0,0,0,1
+                size_hint: 0.35,0.15
+                pos_hint: {"x":0, "top":0.8}
+                text: 'Host: '
+                font_size: (root.width**2 + root.height**2) / 14**4
+            TextInput:
+                text: "pudim.com.br"
+                pos_hint: {"x":0.5, "top":0.8}
+                size_hint: 0.4, 0.15
+                multiline:False
+                id: host
+                font_size: (root.width**2 + root.height**2) / 14**4
+            Label:
+                color: 0,0,0,1
+                size_hint: 0.35,0.15
+                pos_hint: {"x":0, "top":0.8-0.13}
+                text: 'Port: '
+                font_size: (root.width**2 + root.height**2) / 14**4
+            TextInput:
+                text: "80"
+                pos_hint: {"x":0.5, "top":0.8-0.13}
+                size_hint: 0.4, 0.15
+                multiline:False                
+                id: port
+                font_size: (root.width**2 + root.height**2) / 14**4
+            Label:
+                color: 0,0,0,1
+                size_hint: 0.35,0.15
+                pos_hint: {"x":0, "top":0.8-0.13*2}
+                text: 'File: '
+                font_size: (root.width**2 + root.height**2) / 14**4
+            TextInput:
+                text: "index.html"
+                pos_hint: {"x":0.5, "top":0.8-0.13*2}
+                size_hint: 0.4, 0.15
+                multiline:False
+                id: files
+                font_size: (root.width**2 + root.height**2) / 14**4
+
+        Button:
+            
+            background_color: 1, 1, 1, .50
+            pos_hint:{"x":0.3,"y":0.25}
+            size_hint: 0.4, 0.1
+            font_size: (root.width**2 + root.height**2) / 17**4
+            text: 'GET'
+            on_press: 
+                root.GET()
+                app.root.current = "return"
+                root.manager.transition.direction = "up"
+            
+
+
+<Info>:
+    name: "return"
+    response: response
+
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+
+    FloatLayout:
+    
+        
+
+        Label:
+            color: 0,0,0,1
+            pos_hint:{"x": 0.1, "top":0.7}
+            size_hint:0.8, 0.2
+            id: response
+
+        Button:
+            background_color: 1, 1, 1, .50
+            font_size: (root.width**2 + root.height**2) / 17**4
+            pos_hint:{"x":0.01, "y": 0.88}
+            size_hint:0.1,0.1
+            text: "Back"
+            on_release:
+                app.root.current = "request"
+                root.manager.transition.direction = "down"
